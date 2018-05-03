@@ -1,1 +1,9 @@
  ls | grep "[.=]mp4"| xargs ffmpeg -i  2>&1 | grep Duration | cut -d ' ' -f 4 | sed s/,//
+ 
+  ls | grep "[.=]mp4"| xargs -n1 ffmpeg -i  2>&1 | grep Duration | cut -d ' ' -f 4  | sed s/,// | awk -F: '{sum += 3600*$1 + 60*$2 + $3} END {
+    hrs = int(sum / 3600)
+    sum -= hrs * 3600
+    mins = int(sum / 60)
+    secs = sum - mins * 60
+    printf "%d:%02d:%05.2f\n", hrs, mins, secs
+}'
