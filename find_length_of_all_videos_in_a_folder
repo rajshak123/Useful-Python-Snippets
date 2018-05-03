@@ -1,0 +1,1 @@
+ ls | grep "[.=]mp4"| xargs ffmpeg -i  2>&1 | grep Duration | cut -d ' ' -f 4 | sed s/,//
